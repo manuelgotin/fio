@@ -1403,8 +1403,8 @@ static void client_flush_hist_samples(FILE *f, int hist_coarseness, void *sample
 		s = (struct io_sample *)((char *)__get_sample(samples, log_offset, i) +
 			i * sizeof(struct io_u_plat_entry));
 
-		entry = s->data.plat_entry;
-		io_u_plat = entry->io_u_plat;
+		entry = le64_to_cpu(s->data.plat_entry);
+                io_u_plat = entry->io_u_plat;
 
 		fprintf(f, "%lu, %u, %llu, ", (unsigned long) s->time,
 						io_sample_ddir(s), (unsigned long long) s->bs);
